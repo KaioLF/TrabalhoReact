@@ -11,9 +11,9 @@ export default function Detalhes() {
     method: 'GET'
   };
 
-  /*console.log("ID ABAIXO")
+  console.log("ID ABAIXO")
   console.log(id)
-  console.log("ID ACIMA")*/
+  console.log("ID ACIMA")
 
   useEffect(() => {
     fetch(detalhesFilme, options)
@@ -22,48 +22,34 @@ export default function Detalhes() {
       .catch(err => console.error(err))
   }, []);
 
-  /*console.log("** DETALHES ABAIXO")
+  console.log("** DETALHES ABAIXO")
   console.log(movieDetails)
-  console.log("** DETALHES ACIMA")*/
+  console.log("** DETALHES ACIMA")
 
   const choosenMovie = movieDetails ? movieDetails : null;
   console.log("choosenMovie: ", choosenMovie); // adicionando o console.log
 
   return (
-    <div className="container">
+    <div>
       <Title
         title={"Detalhes"}
         text="" />
-      <div className="row">
-        <div className="col-4">
-          <img src={choosenMovie.poster} alt={choosenMovie.titulo} className="poster" />
-        </div>
-        <div className="col-8">
-          <h2>{choosenMovie.titulo}</h2>
-          <p>{choosenMovie.ano}</p>
-          <p>{choosenMovie.sinopse}</p>
-        </div>
-      </div>
-    </div>
-
-    /*<div>
-      <Title
-        title={"Detalhes"}
-        text="" />
-      <div className="container text-center">
+      <div className="container">
         {choosenMovie ? (
-          <>
-            <img src={choosenMovie.poster} alt={choosenMovie.titulo} className="card-img-center" />
-            <p>Filme: {choosenMovie.titulo}</p>
-            <div>
-              <p>{choosenMovie.sinopse}</p>
-              <p>{choosenMovie.ano}</p>
+          <div className="row">
+            <div className="col-md-4">
+              <img src={choosenMovie.poster} alt={choosenMovie.titulo} className="card-img-right" />
             </div>
-          </>
+            <div className="col-md-8 text-left">
+              <h2>Título: {choosenMovie.titulo}</h2>
+              <p>Sinopse: {choosenMovie.sinopse}</p>
+              <p>Ano de lançamento: {choosenMovie.ano}</p>
+            </div>
+          </div>
         ) : (
           <p>Carregando...</p>
         )}
       </div>
-    </div>*/
+    </div>
   )
 }
