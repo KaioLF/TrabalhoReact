@@ -19,6 +19,8 @@ export default function Card() {
           .catch(err => console.error(err))
       }, []);
 
+      console.log(listMovies);
+
       if(!listMovies){
         return <p>Carregando...</p>;
       }
@@ -26,9 +28,6 @@ export default function Card() {
   return (
     <div className="container text-center">
       <div className="row">
-        <h1>
-          Catálogo de Filmes
-        </h1>
         <p>Input de Pesquisa por título+++++++++Select com opções de ordenar os filmes por Título(default), Ano e Nota </p>
         {listMovies.map((filme, index) => (
           <div className="col" key={index}>

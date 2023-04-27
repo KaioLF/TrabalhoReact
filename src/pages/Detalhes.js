@@ -3,50 +3,67 @@ import { useParams } from 'react-router-dom';
 import Title from './../components/Title/index';
 import Comments from './../components/Comments/index';
 
-
-const detalhesFilme = "https://my-json-server.typicode.com/marycamila184/moviedetails/moviedetails/"
-
 export default function Detalhes() {
-    console.log("to na função detalhes");
-    const { id } = useParams();
-    const [movieDetails, setMovieDetails] = useState(null);
+  const [movieDetails, setMovieDetails] = useState(null);
+  const { id } = useParams();
+  const detalhesFilme = id ? `https://my-json-server.typicode.com/marycamila184/moviedetails/moviedetails/${id}` : null;
+  const options = {
+    method: 'GET'
+  };
 
-    const options = {
-        method: 'GET'
-    };
+  /*console.log("ID ABAIXO")
+  console.log(id)
+  console.log("ID ACIMA")*/
 
+  useEffect(() => {
+    fetch(detalhesFilme, options)
+      .then(response => response.json())
+      .then(data => {setMovieDetails(data)})
+      .catch(err => console.error(err))
+  }, []);
 
-    useEffect(() => {
-        console.log("fetching movie details"); // adicionando o console.log
-        fetch(detalhesFilme+id)
-          .then(response => response.json())
-          .then(data => {
-            console.log("movie details fetched successfully: ", data); // adicionando o console.log
-            setMovieDetails(data)
-        })
-          .catch(err => console.error(err))
-      }, []);
-    
-      console.log("******* ABAIXO")
-      console.log(movieDetails)
-      console.log("******* ACIMA")
-      
-      const choosenMovie = movieDetails ? movieDetails.find(f => f.id === id) : null;
-      console.log("choosenMovie: ", choosenMovie); // adicionando o console.log
-    return (
-        
-        <div>
-            <div className="container text-center">
-            {choosenMovie && // verifica se o objeto existe antes de acessar seus atributos
-              <>
-                <p>Filme: {choosenMovie.titulo}</p>
-                <div>
-                    <p>{choosenMovie.sinopse}</p>
-                    <p>{choosenMovie.ano}</p>
-                </div>
-              </>
-            }
-            </div>
+  /*console.log("** DETALHES ABAIXO")
+  console.log(movieDetails)
+  console.log("** DETALHES ACIMA")*/
+
+  const choosenMovie = movieDetails ? movieDetails : null;
+  console.log("choosenMovie: ", choosenMovie); // adicionando o console.log
+
+  return (
+    <div className="container">
+      <Title
+        title={"Detalhes"}
+        text="" />
+      <div className="row">
+        <div className="col-4">
+          <img src={choosenMovie.poster} alt={choosenMovie.titulo} className="poster" />
         </div>
-    )
+        <div className="col-8">
+          <h2>{choosenMovie.titulo}</h2>
+          <p>{choosenMovie.ano}</p>
+          <p>{choosenMovie.sinopse}</p>
+        </div>
+      </div>
+    </div>
+
+    /*<div>
+      <Title
+        title={"Detalhes"}
+        text="" />
+      <div className="container text-center">
+        {choosenMovie ? (
+          <>
+            <img src={choosenMovie.poster} alt={choosenMovie.titulo} className="card-img-center" />
+            <p>Filme: {choosenMovie.titulo}</p>
+            <div>
+              <p>{choosenMovie.sinopse}</p>
+              <p>{choosenMovie.ano}</p>
+            </div>
+          </>
+        ) : (
+          <p>Carregando...</p>
+        )}
+      </div>
+    </div>*/
+  )
 }
