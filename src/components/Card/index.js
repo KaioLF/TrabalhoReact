@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-//fazer um get para o endpoint dos filmes
+
 const moviesEndpoint = "https://my-json-server.typicode.com/marycamila184/movies/movies"
 
-/*function Assitido({ javisto }) {
-  if (javisto) {
-    return <p>Assistido ✔</p>;
-  }
-  return <p className="item">Não assistido</p>;
-}*/
 
 export default function Card() {
     const [listMovies, setlistMovies] = useState(null);
@@ -31,23 +26,24 @@ export default function Card() {
   return (
     <div className="container text-center">
       <div className="row">
+        <h1>
+          Catálogo de Filmes
+        </h1>
+        <p>Input de Pesquisa por título+++++++++Select com opções de ordenar os filmes por Título(default), Ano e Nota </p>
         {listMovies.map((filme, index) => (
           <div className="col" key={index}>
             <div className="card">
-              <img src={filme.poster} alt={filme.titulo} className="card-img-center" style={{flex: 1,
-                  resizeMode: "cover",
-                  justifyContent: "center",}}/>
+              <img src={filme.poster} alt={filme.titulo} className="card-img-center"/>
               <div className="card-body">
                 <h5 className="card-title">{filme.titulo} - ({filme.ano}) </h5>
                 <p>{filme.nota}</p>
-                <a href={`/detalhes/${filme.titulo}`}>
-                  <div className="btn btn-primary">
+                <Link to={`/Detalhes/${filme.id}`}>
+                  <div className='btn btn-primary'>
                     Assistir
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
-
           </div>
         ))}
       </div>
