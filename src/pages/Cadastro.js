@@ -42,6 +42,7 @@ export default function Cadastro() {
 
   return (
     <div className="row">
+      <Title title={"Cadastro"} text={""} />
       <div className="col-md-6">
         <div className="form-group">
           <p>Dados Pessoais</p>
