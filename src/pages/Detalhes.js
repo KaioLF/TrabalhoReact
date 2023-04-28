@@ -37,30 +37,38 @@ export default function Detalhes() {
 
   console.log("ASSISTIDO ABAIXO");
   console.log(choosenMovie?.assistido)
-  return (
-    <div>
-      <Title title={"Detalhes"} text="" />
-      <div className="container">
-        {choosenMovie ? (
-          <div className="row">
-            <div className="col-md-4">
-              <img
-                src={choosenMovie.poster}
-                alt={choosenMovie.titulo}
-                className="card-img-right"
-              />
+
+  if (movieDetails === null || movieDetails === undefined ){
+    return <p>Filme não encontrado</p>;
+  }
+ 
+  else{
+    return (
+      <div>
+        <Title title={"Detalhes"} text="" />
+        <div className="container">
+          {choosenMovie ? (
+            <div className="row">
+              <div className="col-md-4">
+                <img
+                  src={choosenMovie.poster}
+                  alt={choosenMovie.titulo}
+                  className="card-img-right"
+                />
+              </div>
+              <div className="col-md-8 text-left">
+                <h2>Título: {choosenMovie.titulo}</h2>
+                <p>Sinopse: {choosenMovie.sinopse}</p>
+                <p>Ano de lançamento: {choosenMovie.ano}</p>
+                <Button assistido={choosenMovie?.assistido} />
+              </div>
             </div>
-            <div className="col-md-8 text-left">
-              <h2>Título: {choosenMovie.titulo}</h2>
-              <p>Sinopse: {choosenMovie.sinopse}</p>
-              <p>Ano de lançamento: {choosenMovie.ano}</p>
-              <Button assistido={choosenMovie?.assistido} />
-            </div>
-          </div>
-        ) : (
-          <p>Carregando...</p>
-        )}
+          ) : (
+            <p>Carregando...</p>
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  
 }
